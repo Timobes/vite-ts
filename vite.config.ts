@@ -1,12 +1,13 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-    base: '/',
+    base: '/vite-ts/',
     server: {
         host: "0.0.0.0",
         port: 8080
     },
     build: {
-        outDir: "dist"
+        outDir: "dist",
+        sourcemap: false
     }
 })
