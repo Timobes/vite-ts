@@ -1,5 +1,10 @@
 name: Deploy to GitHub Pages
 
+permissions:
+  contents: read
+  pages: write      # ← Важно для deploy-pages
+  id-token: write   # ← Важно для deploy-pages
+
 on:
   push:
     branches:
@@ -8,10 +13,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pages: write      # ← Важно для deploy-pages
-      id-token: write   # ← Важно для deploy-pages
 
     steps:
       - name: Checkout
