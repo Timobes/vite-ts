@@ -3,30 +3,44 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master  # или другая твоя ветка
+      - master  # или main — проверь свою default branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:  
-      contents: write
+    permissions:
+      contents: read
+      pages: write      # ← Важно для deploy-pages
+      id-token: write   # ← Важно для deploy-pages
+
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
+      - name: Build
         run: npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist   
+          path: ./dist  # ← Папка с билдом
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
