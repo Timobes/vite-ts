@@ -1,0 +1,27 @@
+{
+    "cards": {
+        "fireball": {
+            "name": "Fire ball",
+            "damage": 20,   
+            "element": "fire"
+        },
+
+        "firePunch": {
+            "name": "Fire punch",
+            "damage": 10,
+            "element": "fire"
+        },
+
+        "fireball 3": {
+            "name": "Fire ball",
+            "damage": 20,   
+            "element": "fire"
+        },
+
+        "firePunch 4": {
+            "name": "Fire punch",
+            "damage": 10,
+            "element": "fire"
+        }
+    }
+}

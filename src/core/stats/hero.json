@@ -1,0 +1,9 @@
+{
+    "hero": {
+        "mage": {
+            "name": "characters.mage.name",
+            "hp": 100,
+            "element": "fire"   
+        }
+    }
+}

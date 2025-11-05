@@ -1,0 +1,9 @@
+{
+    "characters": {
+        "mage": {
+            "name": "Maga",
+            "description": "Deals damage with a staff",
+            "ability": "Attacks all enemies"
+        }
+    }
+}

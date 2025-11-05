@@ -1,24 +1,31 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import { Screen, ScreenManager } from "./core/screens/screen";
+import { battleScreen, cardPickScreen, homeScreen } from "./core/screens/screensELement";
+import { debugConsole } from "./core/utills/console";
+import { changeNewScene, changePrevScene, keyDown } from "./core/utills/keyboard";
+import { root } from "./core/utills/root";
+import "./ui/styles/style.css";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+export const screenManager = new ScreenManager()
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+async function init() {
+    if (root) {
+        root.innerHTML = ""
+    }
+
+    const mainMenu = new Screen("mainMenu", "mainMenu", "Main Menu Here", homeScreen);
+    const cardPick = new Screen("cardPick", "cardPick", "Choose wisely...", cardPickScreen);
+    const battle = new Screen("battleScreen", "battleScreen", "Battle!", battleScreen);
+
+    screenManager.addNewScreen(mainMenu, cardPick, battle);
+    screenManager.setActiveScreen("mainMenu")
+
+    debugConsole(screenManager)
+
+    keyDown({
+        'ArrowRight': () => changeNewScene(screenManager),
+        'ArrowLeft': () => changePrevScene(screenManager),
+    })
+
+}
+
+document.addEventListener('DOMContentLoaded', init)

@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:  # 👈 Добавьте эту секцию
+    permissions:  
       contents: write
     steps:
       - name: Checkout repository
@@ -29,4 +29,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist   # 👈 вот сюда указываешь свою папку
+          publish_dir: ./dist   
